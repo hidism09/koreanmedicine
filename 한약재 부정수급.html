@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한약재 부정수급, 알고 계셨나요?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@400;500;600;700;900&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f4eee0;
+  --paper-2:#efe7d4;
+  --ink:#2b2620;
+  --ink-soft:#5a5141;
+  --green:#1f4a31;
+  --green-2:#2f6644;
+  --green-mid:#3d7a55;
+  --red:#a8301d;
+  --red-2:#c3492f;
+  --gold:#b08a3e;
+  --brown:#7a5230;
+  --brown-soft:#9c7449;
+  --line:rgba(43,38,32,.14);
+  --shadow:0 18px 40px -22px rgba(43,38,32,.55);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Noto Serif KR',serif;
+  color:var(--ink);
+  background:var(--paper);
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* 한지 질감 배경 */
+body::before{
+  content:"";position:fixed;inset:0;z-index:-2;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(176,138,62,.10), transparent 42%),
+    radial-gradient(circle at 82% 78%, rgba(31,74,49,.10), transparent 45%),
+    linear-gradient(155deg,#f6f0e2 0%, #efe6d2 55%, #ebe1cc 100%);
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:-1;opacity:.5;pointer-events:none;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(122,82,48,.04) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(122,82,48,.03) 0 1px, transparent 1px 4px);
+}
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+/* ---------- 상단 띠 ---------- */
+.topbar{
+  background:var(--green);color:#f3ecda;
+  font-family:'Gowun Dodum',sans-serif;font-size:.82rem;letter-spacing:.06em;
+  text-align:center;padding:9px 16px;
+  border-bottom:3px double rgba(243,236,218,.3);
+}
+.topbar b{color:#e9c878}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;padding:72px 0 60px;overflow:hidden}
+.hero-deco{
+  position:absolute;font-family:'Black Han Sans',sans-serif;
+  color:rgba(31,74,49,.05);font-size:clamp(8rem,22vw,18rem);
+  top:40%;left:50%;transform:translate(-50%,-50%);
+  white-space:nowrap;z-index:0;user-select:none;
+}
+.hero .wrap{position:relative;z-index:1}
+.eyebrow{
+  display:inline-block;font-family:'Gowun Dodum',sans-serif;
+  background:var(--red);color:#fff;font-size:.8rem;letter-spacing:.18em;
+  padding:7px 18px;border-radius:2px;margin-bottom:22px;
+  box-shadow:var(--shadow);
+}
+h1.title{
+  font-family:'Black Han Sans',sans-serif;font-weight:400;
+  font-size:clamp(2.6rem,7vw,5.2rem);line-height:1.05;letter-spacing:-.01em;
+}
+h1.title .red{color:var(--red)}
+h1.title .grn{color:var(--green)}
+.subtitle{
+  font-family:'Gowun Batang',serif;font-size:clamp(1.05rem,2.4vw,1.4rem);
+  color:var(--ink-soft);margin-top:20px;max-width:640px;
+}
+
+/* 시나리오 말풍선 */
+.scenario{
+  margin-top:42px;display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;
+  background:rgba(255,255,255,.55);border:1px solid var(--line);
+  border-left:6px solid var(--gold);border-radius:14px;
+  padding:26px 30px;box-shadow:var(--shadow);max-width:760px;
+  backdrop-filter:blur(2px);
+}
+.scenario .q{
+  font-family:'Black Han Sans',sans-serif;font-size:2.4rem;color:var(--gold);
+  line-height:1;flex-shrink:0;
+}
+.scenario p{font-family:'Gowun Batang',serif;font-size:1.08rem}
+.scenario .who{
+  display:block;margin-top:10px;font-family:'Gowun Dodum',sans-serif;
+  font-size:.85rem;color:var(--brown);letter-spacing:.04em;
+}
+.verdict{
+  margin-top:22px;display:inline-flex;align-items:center;gap:12px;
+  font-family:'Black Han Sans',sans-serif;font-size:1.3rem;color:var(--red);
+}
+.verdict .x{
+  width:34px;height:34px;border-radius:50%;background:var(--red);color:#fff;
+  display:grid;place-items:center;font-size:1.1rem;
+}
+
+/* ---------- 섹션 공통 ---------- */
+section{padding:64px 0;position:relative}
+.sec-head{text-align:center;margin-bottom:48px}
+.sec-tag{
+  font-family:'Gowun Dodum',sans-serif;letter-spacing:.3em;font-size:.78rem;
+  color:var(--brown);text-transform:uppercase;
+}
+.sec-title{
+  font-family:'Black Han Sans',sans-serif;font-weight:400;
+  font-size:clamp(1.8rem,4.5vw,2.8rem);margin-top:8px;line-height:1.15;
+  color:var(--green);
+}
+.sec-title em{color:var(--red);font-style:normal}
+.divider{
+  width:64px;height:4px;margin:18px auto 0;
+  background:linear-gradient(90deg,var(--gold),var(--red));border-radius:2px;
+}
+
+/* ---------- 3 기둥 ---------- */
+.band{
+  background:var(--green);color:#f1e9d6;border-radius:20px;
+  padding:50px 40px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+}
+.band::before{
+  content:"藥";position:absolute;right:-10px;bottom:-40px;
+  font-family:'Noto Serif KR',serif;font-weight:900;font-size:16rem;
+  color:rgba(255,255,255,.05);
+}
+.band h2{
+  font-family:'Black Han Sans',sans-serif;font-weight:400;text-align:center;
+  font-size:clamp(1.5rem,3.6vw,2.1rem);margin-bottom:36px;letter-spacing:.01em;
+}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;position:relative;z-index:1}
+.pillar{text-align:center;padding:0 8px}
+.pillar .ic{
+  width:62px;height:62px;margin:0 auto 16px;border-radius:50%;
+  background:rgba(243,236,218,.14);border:2px solid rgba(233,200,120,.5);
+  display:grid;place-items:center;color:#e9c878;
+}
+.pillar .ic svg{width:30px;height:30px}
+.pillar h3{font-family:'Noto Serif KR',serif;font-weight:700;font-size:1.15rem;margin-bottom:6px}
+.pillar p{font-family:'Gowun Dodum',sans-serif;font-size:.9rem;color:rgba(241,233,214,.85)}
+.band-foot{
+  text-align:center;margin-top:36px;padding-top:24px;
+  border-top:1px dashed rgba(233,200,120,.35);
+  font-family:'Gowun Batang',serif;font-size:1.05rem;color:#f3ecda;position:relative;z-index:1;
+}
+.band-foot b{color:#e9c878}
+
+/* ---------- 5가지 문제 ---------- */
+.problems{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.pcard{
+  background:#fff;border:1px solid var(--line);border-radius:16px;
+  padding:26px 18px;position:relative;box-shadow:var(--shadow);
+  transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s;
+}
+.pcard:hover{transform:translateY(-8px);box-shadow:0 26px 50px -24px rgba(43,38,32,.6)}
+.pcard .num{
+  position:absolute;top:-16px;left:50%;transform:translateX(-50%);
+  width:36px;height:36px;border-radius:50%;color:#fff;
+  font-family:'Black Han Sans',sans-serif;font-size:1.2rem;
+  display:grid;place-items:center;box-shadow:var(--shadow);
+}
+.pcard h3{
+  font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1.12rem;
+  text-align:center;margin:16px 0 16px;line-height:1.3;
+}
+.pcard ul{list-style:none;font-family:'Gowun Dodum',sans-serif;font-size:.84rem;color:var(--ink-soft)}
+.pcard li{padding-left:14px;position:relative;margin-bottom:9px;line-height:1.5}
+.pcard li::before{content:"·";position:absolute;left:2px;font-weight:700;font-size:1.1rem;top:-2px}
+/* 색상 변주 */
+.pcard:nth-child(1) .num,.pcard:nth-child(1) li::before{background:#2f6db5}
+.pcard:nth-child(1) h3{color:#235a99}
+.pcard:nth-child(2) .num,.pcard:nth-child(2) li::before{background:#c3492f}
+.pcard:nth-child(2) h3{color:var(--red)}
+.pcard:nth-child(3) .num,.pcard:nth-child(3) li::before{background:#3d7a55}
+.pcard:nth-child(3) h3{color:var(--green-2)}
+.pcard:nth-child(4) .num,.pcard:nth-child(4) li::before{background:#8458a8}
+.pcard:nth-child(4) h3{color:#6e479a}
+.pcard:nth-child(5) .num,.pcard:nth-child(5) li::before{background:#b06a2c}
+.pcard:nth-child(5) h3{color:var(--brown)}
+.pcard li::before{color:inherit}
+
+/* ---------- 실제 사례 ---------- */
+.cases-sec{
+  background:linear-gradient(160deg,#3a2c20,#241a12);color:#ede2cf;border-radius:24px;
+  padding:56px 0;margin:0 24px;box-shadow:var(--shadow);
+}
+.cases-sec .sec-title{color:#f0d99a}
+.cases-sec .sec-tag{color:#caa86a}
+.cases{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:0 36px}
+.ccard{
+  background:rgba(255,255,255,.05);border:1px solid rgba(240,217,154,.18);
+  border-radius:16px;padding:26px 22px;backdrop-filter:blur(2px);
+}
+.ccard .badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--red);color:#fff;font-family:'Noto Serif KR',serif;font-weight:700;
+  font-size:.92rem;padding:7px 14px;border-radius:8px;margin-bottom:18px;
+}
+.ccard .badge .warn{
+  width:20px;height:20px;border-radius:4px;background:#f0d99a;color:var(--red);
+  display:grid;place-items:center;font-family:'Black Han Sans',sans-serif;font-size:.85rem;
+}
+.ccard ul{list-style:none;font-family:'Gowun Dodum',sans-serif;font-size:.9rem;color:#e3d6bf}
+.ccard li{padding-left:18px;position:relative;margin-bottom:11px;line-height:1.55}
+.ccard li::before{content:"▸";position:absolute;left:0;color:#f0d99a}
+.ccard li b{color:#fff}
+
+/* ---------- 법적 관리 ---------- */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.panel{
+  background:#fff;border:1px solid var(--line);border-radius:18px;
+  padding:34px 30px;box-shadow:var(--shadow);
+}
+.panel.law{border-top:5px solid #2f4d7a}
+.panel.policy{border-top:5px solid var(--green)}
+.panel h2{
+  font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1.45rem;
+  margin-bottom:24px;display:flex;align-items:center;gap:12px;
+}
+.panel.law h2{color:#2f4d7a}
+.panel.policy h2{color:var(--green)}
+.panel h2 .pin{
+  width:40px;height:40px;border-radius:11px;display:grid;place-items:center;color:#fff;flex-shrink:0;
+}
+.panel.law h2 .pin{background:#2f4d7a}
+.panel.policy h2 .pin{background:var(--green)}
+
+.law-item{display:flex;gap:14px;padding:16px 0;border-bottom:1px dashed var(--line)}
+.law-item:last-child{border-bottom:none}
+.law-item .tag{
+  flex-shrink:0;font-family:'Noto Serif KR',serif;font-weight:700;font-size:.82rem;
+  background:#eef1f7;color:#2f4d7a;border:1px solid #d4ddec;
+  padding:6px 10px;border-radius:8px;height:fit-content;white-space:nowrap;max-width:120px;line-height:1.35;
+}
+.law-item p{font-family:'Gowun Dodum',sans-serif;font-size:.88rem;color:var(--ink-soft)}
+
+.policy-block{margin-bottom:24px}
+.policy-block:last-child{margin-bottom:0}
+.policy-block .ph{
+  font-family:'Noto Serif KR',serif;font-weight:700;font-size:.95rem;color:#fff;
+  background:var(--green-2);padding:8px 16px;border-radius:8px;margin-bottom:14px;display:inline-block;
+}
+.policy-block .ph.alt{background:var(--brown-soft)}
+.policy-item{display:flex;gap:10px;margin-bottom:12px;font-family:'Gowun Dodum',sans-serif;font-size:.88rem}
+.policy-item .ck{color:var(--green-2);font-weight:700;flex-shrink:0}
+.policy-item .sub{display:block;color:var(--brown);font-size:.8rem;margin-top:2px}
+.policy-block.add .ck{color:var(--brown-soft)}
+
+/* ---------- 마무리 ---------- */
+.closing{
+  text-align:center;padding:84px 24px 70px;position:relative;
+}
+.quote{
+  font-family:'Black Han Sans',sans-serif;font-weight:400;
+  font-size:clamp(1.6rem,4.6vw,2.9rem);line-height:1.3;letter-spacing:-.01em;
+}
+.quote .red{color:var(--red)}
+.quote .grn{color:var(--green)}
+.quote-mark{font-size:3rem;color:var(--gold);font-family:'Gowun Batang',serif;line-height:0;vertical-align:-.3em}
+.closing .sub{
+  font-family:'Gowun Batang',serif;font-size:clamp(1.05rem,2.4vw,1.35rem);
+  color:var(--ink-soft);margin-top:24px;
+}
+.seal{
+  margin-top:42px;display:inline-flex;align-items:center;gap:14px;
+  background:var(--green);color:#f3ecda;font-family:'Noto Serif KR',serif;font-weight:700;
+  font-size:clamp(1rem,2.6vw,1.3rem);padding:18px 38px;border-radius:50px;
+  box-shadow:var(--shadow);
+}
+.seal .leaf{color:#e9c878}
+
+footer{
+  text-align:center;padding:30px 24px 50px;
+  font-family:'Gowun Dodum',sans-serif;font-size:.78rem;color:var(--brown);
+}
+
+/* 등장 애니메이션 */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}
+.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}.reveal.d5{transition-delay:.4s}
+
+/* 반응형 */
+@media(max-width:900px){
+  .problems{grid-template-columns:repeat(2,1fr);gap:26px 18px}
+  .cases{grid-template-columns:1fr}
+  .pillars{gap:20px}
+  .split{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .pillars{grid-template-columns:1fr;gap:26px}
+  .problems{grid-template-columns:1fr}
+  .scenario{padding:22px}
+  section{padding:48px 0}
+  .band{padding:38px 22px}
+  .cases-sec{margin:0 14px;padding:44px 0}
+  .cases{padding:0 18px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">환자의 건강과 직결되는 의약품 — <b>한약재는 단순한 상품이 아닙니다</b></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-deco">不正受給</div>
+  <div class="wrap">
+    <span class="eyebrow reveal">알·림·마·당</span>
+    <h1 class="title reveal d1"><span class="red">한약재 부정수급</span>에 대해<br><span class="grn">알아봅시다</span></h1>
+    <p class="subtitle reveal d2">싸다는 이유로 출처가 불분명한 한약재를 사용하면, 그 피해는 고스란히 환자에게 돌아옵니다. 우리가 꼭 알아야 할 이유를 함께 살펴봅니다.</p>
+
+    <div class="scenario reveal d3">
+      <span class="q">?</span>
+      <div>
+        <p>“저희 삼촌이 한약재를 싸게 주신다고 합니다.<br>저희 한의원이 이 약재를 사용해도 될까요?”</p>
+        <span class="who">— 어느 한의원에 접수된 실제 같은 고민</span>
+        <div class="verdict"><span class="x">✕</span> 안 됩니다. 그 이유를 지금부터 설명드립니다.</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- 3 기둥 -->
+<section>
+  <div class="wrap">
+    <div class="band reveal">
+      <h2>한약재는 환자의 건강과 직결됩니다</h2>
+      <div class="pillars">
+        <div class="pillar reveal d1">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.5 8 8 11 4.5-3 8-6 8-11V5l-8-3z"/><path d="M12 8v6M9 11h6" stroke-linecap="round"/></svg></div>
+          <h3>엄격한 품질관리</h3>
+          <p>재배부터 유통까지<br>전 과정의 철저한 검증</p>
+        </div>
+        <div class="pillar reveal d2">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3" stroke-linecap="round"/></svg></div>
+          <h3>안전성 검증 필수</h3>
+          <p>중금속·잔류농약 등<br>유해물질 정밀 검사</p>
+        </div>
+        <div class="pillar reveal d3">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4" stroke-linecap="round"/></svg></div>
+          <h3>규격품 사용 의무</h3>
+          <p>법으로 정해진<br>규격 한약재만 사용</p>
+        </div>
+      </div>
+      <div class="band-foot">한약재는 단순한 상품이 아니라, <b>환자의 건강과 생명을 위한 의약품</b>입니다.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 5가지 문제 -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag">Five Problems</div>
+      <h2 class="sec-title">한약재 부정수급의 <em>5가지 문제</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="problems">
+      <div class="pcard reveal d1"><span class="num">1</span>
+        <h3>의료적 문제</h3>
+        <ul>
+          <li>품질 검증이 되지 않은 한약재 사용 위험</li>
+          <li>중금속·잔류농약·곰팡이 독소 혼입 가능</li>
+          <li>약효의 일관성 저하 및 부작용 발생 우려</li>
+          <li>환자의 건강과 안전에 직접적 피해 초래</li>
+        </ul>
+      </div>
+      <div class="pcard reveal d2"><span class="num">2</span>
+        <h3>법적 문제</h3>
+        <ul>
+          <li>규격품 한약재 사용 의무 위반 가능</li>
+          <li>의료법·약사법 위반 소지</li>
+          <li>형사 처벌 대상</li>
+        </ul>
+      </div>
+      <div class="pcard reveal d3"><span class="num">3</span>
+        <h3>윤리적 문제</h3>
+        <ul>
+          <li>환자 안전보다 비용 절감을 우선시하는 행위</li>
+          <li>의료인의 직업윤리 및 책임 의무 위반</li>
+          <li>환자 신뢰 저하</li>
+        </ul>
+      </div>
+      <div class="pcard reveal d4"><span class="num">4</span>
+        <h3>사회적 문제</h3>
+        <ul>
+          <li>한의학 및 의료기관에 대한 사회적 신뢰 감소</li>
+          <li>공정한 시장 질서 저해</li>
+        </ul>
+      </div>
+      <div class="pcard reveal d5"><span class="num">5</span>
+        <h3>인간관계 및 현실적 문제</h3>
+        <ul>
+          <li>친척과의 사적 거래로 객관성 저하</li>
+          <li>문제 발생 시 책임 소재 불분명</li>
+          <li>지속적 거래 압박 및 관계 갈등 가능</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 실제 사례 -->
+<section style="padding-top:24px">
+  <div class="cases-sec reveal">
+    <div class="sec-head">
+      <div class="sec-tag">Real Cases</div>
+      <h2 class="sec-title">실제로 이런 사례가 있었습니다</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="cases">
+      <div class="ccard reveal d1">
+        <span class="badge"><span class="warn">!</span> 무허가 한약재 제조·판매</span>
+        <ul>
+          <li>무허가 <b>녹용 절편</b> 유통</li>
+          <li>양약 성분 불법 혼입</li>
+          <li>기원 불명 약재 둔갑</li>
+        </ul>
+      </div>
+      <div class="ccard reveal d2">
+        <span class="badge"><span class="warn">!</span> 위품(가짜 원료) 사용·혼입</span>
+        <ul>
+          <li>가짜 <b>백수오</b> 혼입 사태</li>
+          <li>독성 <b>‘면조인’</b> 박스갈이 밀수</li>
+        </ul>
+      </div>
+      <div class="ccard reveal d3">
+        <span class="badge"><span class="warn">!</span> 불량 한약재 부정 수입</span>
+        <ul>
+          <li>샘플 바꿔치기 밀반입</li>
+          <li>유해물질 초과 약재 유통</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 법 + 정책 -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag">Law &amp; Policy</div>
+      <h2 class="sec-title">법으로 엄격히 관리되고, <em>제도로 보완됩니다</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="split">
+      <!-- 법 -->
+      <div class="panel law reveal d1">
+        <h2><span class="pin"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M5 7h14M7 7l-3 6h6l-3-6zm10 0-3 6h6l-3-6z" stroke-linecap="round" stroke-linejoin="round"/></svg></span>법으로도 엄격히 관리됩니다</h2>
+        <div class="law-item"><span class="tag">약사법 제62조</span><p>공정서 기준에 맞지 않는 위품 한약재 제조 및 판매 금지</p></div>
+        <div class="law-item"><span class="tag">약사법 제93조</span><p>위품·무허가 의약품을 유통·판매한 자에 대한 엄중한 법적 책임 및 형사 처벌</p></div>
+        <div class="law-item"><span class="tag">약사법 제42조 ·관세법 제269조</span><p>샘플 바꿔치기, 박스갈이 등으로 검사를 기만하거나 신고 없이 밀반입하는 범죄 행위 처벌</p></div>
+        <div class="law-item"><span class="tag">원산지 표시법 제6조</span><p>중국산 약재를 국산 규격품처럼 속이거나 원산지를 거짓 표시하는 행위 금지</p></div>
+        <div class="law-item"><span class="tag">식품위생법 ·표시광고법</span><p>안전성이 입증되지 않은 식품 혼입 차단, 허위 기재 등 소비자 기만 행위 규제</p></div>
+      </div>
+      <!-- 정책 -->
+      <div class="panel policy reveal d2">
+        <h2><span class="pin"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.5 8 8 11 4.5-3 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>현재 관리 정책 및 보완책</h2>
+        <div class="policy-block">
+          <span class="ph">현재 안전관리 체계</span>
+          <div class="policy-item"><span class="ck">✓</span><div>식약처 GMP 인증 및 정기조사<span class="sub">3년 주기 정기 점검</span></div></div>
+          <div class="policy-item"><span class="ck">✓</span><div>유통 제품 수거 및 위해요소 검사<span class="sub">중금속·잔류농약 등 상시 점검</span></div></div>
+          <div class="policy-item"><span class="ck">✓</span><div>지자체 현장 특별 단속<span class="sub">유효기간 경과·밀반입 등 집중 단속</span></div></div>
+        </div>
+        <div class="policy-block add">
+          <span class="ph alt">안전성 강화를 위한 추가 대책</span>
+          <div class="policy-item"><span class="ck">✓</span><div>블록체인 기반 이력 추적<span class="sub">재배~유통 전 과정 위·변조 방지</span></div></div>
+          <div class="policy-item"><span class="ck">✓</span><div>DNA 바코드 및 유전자 검사<span class="sub">가공 한약재의 기원 식물 판별</span></div></div>
+          <div class="policy-item"><span class="ck">✓</span><div>신속 감별 키트 및 AI 모니터링<span class="sub">현장 중심 대응력 강화</span></div></div>
+          <div class="policy-item"><span class="ck">✓</span><div>제3자 교차 검증 시스템 도입</div></div>
+          <div class="policy-item"><span class="ck">✓</span><div>의료인의 전문성·윤리의식 강화<span class="sub">지속적인 교육 및 인식 개선</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 마무리 -->
+<section class="closing">
+  <div class="wrap">
+    <p class="quote reveal"><span class="quote-mark">“</span>걱정하지 마십시오.<br>저희 한의원은 약재를 <span class="red">비공식적 방법으로 거래하지 않습니다.</span><span class="quote-mark">”</span></p>
+    <p class="sub reveal d1">안전하고 검증된 <b>규격품 한약재</b>만 사용합니다.</p>
+    <div class="seal reveal d2"><span class="leaf">❧</span> 환자의 건강이 최우선입니다. 안심하고 진료받으세요.</div>
+  </div>
+</section>
+
+<footer>본 자료는 한약재 부정수급의 위험성과 관련 제도를 안내하기 위한 정보용 페이지입니다.</footer>
+
+<script>
+const io=new IntersectionObserver((es)=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
